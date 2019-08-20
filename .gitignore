@@ -59,3 +59,14 @@ typings/
 
 # next.js build output
 .next
+
+# CDK compiled code
+bin/*.js
+bin/*.d.ts
+lib/*.js
+lib/*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out

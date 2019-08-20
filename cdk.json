@@ -1,0 +1,3 @@
+{
+  "app": "npx ts-node bin/aws-experiments-load-apigateway-lambda-documentdb.ts"
+}

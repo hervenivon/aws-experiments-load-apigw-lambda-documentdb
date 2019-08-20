@@ -1,2 +1,59 @@
 # aws-experiments-load-apigateway-lambda-documentdb
-Load simulation of an API built with Amazon API Gateway, AWS Lambda, Amazon DocumentDB and AWS CDK
+
+Load simulation of an API built with Amazon API Gateway, AWS Lambda, Amazon DocumentDB and AWS CDK.
+
+## Description
+
+This experiment simulates API calls to an API built with AWS CDK and the following services:
+
+- [Amazon API Gateway](https://aws.amazon.com/api-gateway/)
+- [AWS Lambda](https://aws.amazon.com/lambda/)
+- [Amazon DocumentDB](https://aws.amazon.com/documentdb/)
+
+As the lambda require to be set into a VPC to connect the DocumentDB database, we will face more important cold start. Therefore, this experiment also leverage the serverless plugin [warmup](https://github.com/FidelLimited/serverless-plugin-warmup). This is to wait for GA of the new [AWS Lambda architecture that will share ENIs](https://youtu.be/QdzV04T_kec?t=2393) and become much faster.
+
+## What we build
+
+TODO: Insert diagram
+
+## Pre requisites
+
+For this experiment you will need the following:
+
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+- An AWS account. If you don’t have an AWS account, you can create a free account [here](https://portal.aws.amazon.com/billing/signup/iam).
+- Node.js (>= 8.10). To install Node.js visit the [node.js](https://nodejs.org/en/) website. You can also a node version manager: [nvm](https://github.com/nvm-sh/nvm)
+- [AWS CDK toolkit](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
+
+If this is the first time you deploy a CDK application in an environment you need to bootstrap it. Please take a look at the bootstrap section of the [CDK workshop](https://cdkworkshop.com/20-typescript/20-create-project/500-deploy.html).
+
+## Results
+
+## Developing
+
+Since this CDK project is typescript based, sources need to be compiled to JavaScript every time you make a modification to source files. This project is configured with a nice little npm script called `watch` that automatically compile `.js` file every time you make a change
+
+### Start watching for changes
+
+In the home directory, open a new terminal and enter:
+
+```bash
+$> npm run watch
+```
+
+## Useful commands
+
+- `npm run build`   compile typescript to js
+- `npm run watch`   watch for changes and compile
+- `cdk deploy`      deploy this stack to your default AWS account/region
+- `cdk diff`        compare deployed stack with current state
+- `cdk synth`       emits the synthesized CloudFormation template
+
+## Sources and inspiration
+
+This repository is inspired from different sources:
+
+- [Managing AWS Lambda Function Concurrency](https://aws.amazon.com/blogs/compute/managing-aws-lambda-function-concurrency/)
+- [Connecting to AWS DocumentDB from a Lambda function](https://blog.webiny.com/connecting-to-aws-documentdb-from-a-lambda-function-2b666c9e4402)
+- [Running AWS Lambda-based applications with Amazon DocumentDB](https://aws.amazon.com/blogs/database/running-aws-lambda-based-applications-with-amazon-documentdb/)
+- For a dive on CDK, please look at [CDK workshop](https://cdkworkshop.com)
