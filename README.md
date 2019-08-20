@@ -41,13 +41,22 @@ In the home directory, open a new terminal and enter:
 $> npm run watch
 ```
 
-## Useful commands
+### Useful commands
 
 - `npm run build`   compile typescript to js
 - `npm run watch`   watch for changes and compile
 - `cdk deploy`      deploy this stack to your default AWS account/region
 - `cdk diff`        compare deployed stack with current state
 - `cdk synth`       emits the synthesized CloudFormation template
+- `cdk destroy`     destroy the CDK application in your default AWS account/region
+
+## Clean up
+
+Destroy the CDK application:
+
+```bash
+$> cdk destroy
+```
 
 ## Sources and inspiration
 
