@@ -1,8 +1,8 @@
 {
-  "name": "aws-experiments-load-apigateway-lambda-documentdb",
+  "name": "aws-experiments-load-apigw-lambda-documentdb",
   "version": "0.1.0",
   "bin": {
-    "aws-experiments-load-apigateway-lambda-documentdb": "bin/aws-experiments-load-apigateway-lambda-documentdb.js"
+    "aws-experiments-load-apigw-lambda-documentdb": "bin/aws-experiments-load-apigw-lambda-documentdb.js"
   },
   "scripts": {
     "build": "tsc",

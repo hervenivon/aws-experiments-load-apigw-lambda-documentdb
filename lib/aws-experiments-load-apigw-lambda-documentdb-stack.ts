@@ -2,7 +2,7 @@ import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 import apigw = require('@aws-cdk/aws-apigateway');
 
-export class AwsExperimentsLoadApigatewayLambdaDocumentdbStack extends cdk.Stack {
+export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
