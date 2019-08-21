@@ -95,10 +95,15 @@ export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
     });
     dbInstance.addDependsOn(dbCluster);
 
-    const DB_URL = `mongodb://${dbCluster.masterUsername}:${dbCluster.masterUserPassword}@${dbCluster.attrEndpoint}:${dbCluster.attrPort}`
+    // defines common AWS lambda environment props
     const DB_NAME = dbInstance.dbInstanceIdentifier as string;
-
-
+    const commentEnvironment = {
+      //SM_SECRET_ARN: secret.secretArn
+      SM_SECRET_ARN: docdbsecretARN,
+      DB_HOST: dbCluster.attrEndpoint,
+      DB_NAME,
+      DB_PORT: port.toString()
+    }
 
     // defines an AWS lambda resource on Node
     const helloNode = new lambda.Function(this, 'HelloHandlerNode', {
@@ -106,12 +111,9 @@ export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
       code: lambda.Code.asset('lambda-node'), // code loaded from the "lambda" directory
       handler: 'hello.handler',               // file is "hello", function is "handler"
       tracing: lambda.Tracing.ACTIVE,         // activate X-Ray
-      environment: {
-        SM_SECRET_ARN: docdbsecretARN
-        //SM_SECRET_ARN: secret.secretArn
-      }
+      environment: commentEnvironment
     });
-    secret.grantRead(helloNode)
+    secret.grantRead(helloNode);
 
     // defines an AWS lambda resource on Python
     const helloPython = new lambda.Function(this, 'HelloHandlerPython', {
@@ -119,16 +121,39 @@ export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
       code: lambda.Code.asset('lambda-python'), // code loaded from the "lambda" directory
       handler: 'hello.handler',                 // file is "hello", function is "handler"
       tracing: lambda.Tracing.ACTIVE,           // activate X-Ray
-      environment: {
-        SM_SECRET_ARN: docdbsecretARN
-        //SM_SECRET_ARN: secret.secretArn
-      }
+      environment: commentEnvironment
     });
-    secret.grantRead(helloPython)
+    secret.grantRead(helloPython);
+
+    const urlShortener = new lambda.Function(this, 'urlShortener', {
+      functionName: 'urlShortener',
+      runtime: lambda.Runtime.NODEJS_10_X,
+      vpc,
+      code: new lambda.AssetCode('lambda-node'),
+      handler: 'app.sethandler',
+      timeout: cdk.Duration.seconds(10),
+      tracing: lambda.Tracing.ACTIVE,           // activate X-Ray
+      securityGroup: sg,
+      environment: commentEnvironment
+    });
+    secret.grantRead(urlShortener);
+
+    const getOriginURL = new lambda.Function(this, 'getOriginURL', {
+        functionName: 'getOriginURL',
+        runtime: lambda.Runtime.NODEJS_10_X,
+        vpc,
+        code: new lambda.AssetCode('lambda-node'),
+        handler: 'app.gethandler',
+        timeout: cdk.Duration.seconds(10),
+        tracing: lambda.Tracing.ACTIVE,           // activate X-Ray
+        securityGroup: sg,
+        environment: commentEnvironment
+    });
+    secret.grantRead(getOriginURL);
 
     // defines an API Gateway REST API to support all handlers.
-    const api = new apigw.RestApi(this, 'gdelt', {
-      restApiName: 'GDELT'
+    const api = new apigw.RestApi(this, 'api', {
+      restApiName: 'url-shortener'
     });
 
     const routeNode = api.root.addResource('node')
@@ -139,7 +164,15 @@ export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
     const routePythonLambdaIntegration = new apigw.LambdaIntegration(helloPython);
     routePython.addMethod('GET', routePythonLambdaIntegration)
 
-    new cdk.CfnOutput(this, 'gdeltEndpoint', {
+    const urls = api.root.addResource('urls')
+    const urlShortenerLambdaIntegration = new apigw.LambdaIntegration(urlShortener);
+    urls.addMethod('POST', urlShortenerLambdaIntegration);
+
+    const singleURL = urls.addResource(`{id}`);
+    const getOriginURLLambdaIntegration = new apigw.LambdaIntegration(getOriginURL);
+    singleURL.addMethod('GET', getOriginURLLambdaIntegration);
+
+    new cdk.CfnOutput(this, 'apiEndpoint', {
       value: api.url
     });
   }

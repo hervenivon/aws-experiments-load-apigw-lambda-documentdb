@@ -5,9 +5,11 @@
     "aws-experiments-load-apigw-lambda-documentdb": "bin/aws-experiments-load-apigw-lambda-documentdb.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cd lambda-node && npm install --production --no-optional && ([ -f rds-combined-ca-bundle.pem ] || wget https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem) && cd ..",
     "watch": "tsc -w",
-    "cdk": "cdk"
+    "clean": "rm -rf node_modules && cd lambda-node && rm -rf node_modules",
+    "diff": "cdk diff",
+    "deploy": "cdk deploy"
   },
   "devDependencies": {
     "@types/node": "8.10.45",

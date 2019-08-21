@@ -65,8 +65,13 @@ bin/*.js
 bin/*.d.ts
 lib/*.js
 lib/*.d.ts
+lambda-node/*.js
+lambda-node/*.d.ts
 node_modules
 
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+# Others
+rds-combined-ca-bundle.pem
