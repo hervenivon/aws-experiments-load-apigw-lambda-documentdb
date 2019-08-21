@@ -153,7 +153,11 @@ export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
 
     // defines an API Gateway REST API to support all handlers.
     const api = new apigw.RestApi(this, 'api', {
-      restApiName: 'url-shortener'
+      restApiName: 'url-shortener',
+      deployOptions: {
+        tracingEnabled: true,
+        dataTraceEnabled: true
+      }
     });
 
     const routeNode = api.root.addResource('node')
