@@ -93,33 +93,26 @@ $> cdk destroy
 
 ## TODO
 
-Setting up X-RAY:
-
-- [Documentation](https://docs.aws.amazon.com/xray/latest/devguide/xray-services-lambda.html)
-
-Setting up warm-up:
-
-- [serverless-plugin-warmup](https://www.npmjs.com/package/serverless-plugin-warmup)
-- [Warming Up your Lambdas: Schedule or Plugin?](https://dev.to/dvddpl/warming-up-your-lambdas-schedule-or-plugin--flo)
-
-Check lambda best practices and optimization:
-
-- [Documentation](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
-- [Optimizing AWS Lambda performance with MongoDB Atlas and Node.js](https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs)
-- [https://dev.to/adnanrahic/solving-invisible-scaling-issues-with-serverless-and-mongodb-4m55](https://dev.to/adnanrahic/solving-invisible-scaling-issues-with-serverless-and-mongodb-4m55)
-- [How to Use MongoDB Connection Pooling on AWS Lambda](https://scalegrid.io/blog/how-to-use-mongodb-connection-pooling-on-aws-lambda/)
-- [Best Practices for Developing on AWS Lambda](https://aws.amazon.com/blogs/architecture/best-practices-for-developing-on-aws-lambda/)
-
-Measuring results:
-
-- [I’m afraid you’re thinking about AWS Lambda cold starts all wrong](https://theburningmonk.com/2018/01/im-afraid-youre-thinking-about-aws-lambda-cold-starts-all-wrong/)
-- [aws lambda – compare coldstart time with different languages, memory and code sizes](https://theburningmonk.com/2017/06/aws-lambda-compare-coldstart-time-with-different-languages-memory-and-code-sizes/)
-- [Lambda Cold Starts, A Language Comparison 🕵 ❄️](https://medium.com/@nathan.malishev/lambda-cold-starts-language-comparison-%EF%B8%8F-a4f4b5f16a62)
-
-Loading the application:
-
-- [Artillery](https://artillery.io/docs/script-reference/)
-- [Managing AWS Lambda Function Concurrency](https://aws.amazon.com/blogs/compute/managing-aws-lambda-function-concurrency/)
+- [X] Setting up X-RAY:
+  - [Documentation](https://docs.aws.amazon.com/xray/latest/devguide/xray-services-lambda.html)
+  - [CDK for API Gateway](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-apigateway.StageOptions.html)
+  - [CDK for Lambda](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Function.html)
+- [ ] Setting up warm-up:
+  - [serverless-plugin-warmup](https://www.npmjs.com/package/serverless-plugin-warmup)
+  - [Warming Up your Lambdas: Schedule or Plugin?](https://dev.to/dvddpl/warming-up-your-lambdas-schedule-or-plugin--flo)
+- [ ] Check lambda best practices and optimization:
+  - [ ] [Documentation](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
+  - [ ] [Optimizing AWS Lambda performance with MongoDB Atlas and Node.js](https://www.mongodb.com/blog/post/optimizing-aws-lambda-performance-with-mongodb-atlas-and-nodejs)
+  - [ ] [https://dev.to/adnanrahic/solving-invisible-scaling-issues-with-serverless-and-mongodb-4m55](https://dev.to/adnanrahic/solving-invisible-scaling-issues-with-serverless-and-mongodb-4m55)
+  - [ ] [How to Use MongoDB Connection Pooling on AWS Lambda](https://scalegrid.io/blog/how-to-use-mongodb-connection-pooling-on-aws-lambda/)
+  - [ ] [Best Practices for Developing on AWS Lambda](https://aws.amazon.com/blogs/architecture/best-practices-for-developing-on-aws-lambda/)
+- [ ] Measuring results:
+  - [I’m afraid you’re thinking about AWS Lambda cold starts all wrong](https://theburningmonk.com/2018/01/im-afraid-youre-thinking-about-aws-lambda-cold-starts-all-wrong/)
+  - [aws lambda – compare coldstart time with different languages, memory and code sizes](https://theburningmonk.com/2017/06/aws-lambda-compare-coldstart-time-with-different-languages-memory-and-code-sizes/)
+  - [Lambda Cold Starts, A Language Comparison 🕵 ❄️](https://medium.com/@nathan.malishev/lambda-cold-starts-language-comparison-%EF%B8%8F-a4f4b5f16a62)
+- [ ] Loading the application:
+  - [Artillery](https://artillery.io/docs/script-reference/)
+  - [Managing AWS Lambda Function Concurrency](https://aws.amazon.com/blogs/compute/managing-aws-lambda-function-concurrency/)
 
 ## Sources and inspiration
 
