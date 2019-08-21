@@ -27,6 +27,8 @@ For this experiment you will need the following:
 
 If this is the first time you deploy a CDK application in an environment you need to bootstrap it. Please take a look at the bootstrap section of the [CDK workshop](https://cdkworkshop.com/20-typescript/20-create-project/500-deploy.html).
 
+- [artillery](https://artillery.io/): `$> npm install -g artillery`
+
 ## Deployment
 
 ### Create Secret Manager secrets for the database
@@ -60,7 +62,15 @@ Or you can specify the same context variable and value in the `cdk.json` file, u
 }
 ```
 
+## Load the application
+
+```bash
+$> artillery run artillery.yml
+```
+
 ## Results
+
+[X-Ray documentation](https://docs.aws.amazon.com/xray/latest/devguide/xray-console-analytics.html)
 
 ## Developing
 

@@ -1,0 +1,20 @@
+config:
+  target: https://hi1scafqpd.execute-api.us-east-1.amazonaws.com
+  phases:
+    - duration: 120
+      arrivalRate: 0
+      rampTo: 20
+      name: "Warm up the application"
+    - duration: 240
+      arrivalRate: 20
+      name: "Sustained max load"
+  variables:
+    url:
+      - "https://www.amazon.com/"
+      - "https://aws.amazon.com/"
+scenarios:
+  - flow:
+    - post:
+        url: "/prod/urls"
+        json:
+          url: "{{ url }}"
