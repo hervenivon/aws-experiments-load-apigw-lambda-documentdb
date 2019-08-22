@@ -109,6 +109,8 @@ It sets two phases:
 1. Warm up: ramp up arrival rate from 0 to 20 over 2 minutes
 1. Max load sustain: 4 minutes at 20 virtual users arrival per second
 
+Going further: if you run those tests from a local computer, you are limited by its bandwidth and performance. You can  execute those tests from an `EC2` instance in the `VPC` we have created to push the infrastructure further.
+
 ## Results
 
 Navigate to the [x-ray service map](https://console.aws.amazon.com/xray/home?region=us-east-1#/service-map).

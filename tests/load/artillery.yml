@@ -1,5 +1,5 @@
 config:
-  target: https://hi1scafqpd.execute-api.us-east-1.amazonaws.com
+  target: https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com
   phases:
     - duration: 120
       arrivalRate: 0
