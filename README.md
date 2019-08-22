@@ -7,7 +7,9 @@ This experiment simulates several calls to an API deployed through [AWS CDK](htt
 - [Amazon DocumentDB](https://aws.amazon.com/documentdb/)
 - [AWS Secrets manager](https://aws.amazon.com/secrets-manager/)
 
-As the lambda function requires to be set into a VPC in order to connect to the DocumentDB database, our API will face more important [cold start](https://www.freecodecamp.org/news/lambda-vpc-cold-starts-a-latency-killer-5408323278dd/) until the GA of the new [AWS Lambda architecture that will share ENIs](https://youtu.be/QdzV04T_kec?t=2393) therefore we will implement a warm up phase in our service.
+The API is a url shortener. It stores the given `url` in body as `json` (see below for more details), associates it with a `shortId` and returns a `shortUrl`. If you access this `shortUrl` you will be redirected to the origin url.
+
+Note: As the lambda function requires to be set into a VPC in order to connect to the DocumentDB database, our API will face more important [cold start](https://www.freecodecamp.org/news/lambda-vpc-cold-starts-a-latency-killer-5408323278dd/) until the GA of the new [AWS Lambda architecture that will share ENIs](https://youtu.be/QdzV04T_kec?t=2393) therefore we will implement a warm up phase in our service.
 
 ## What we build
 
@@ -85,6 +87,24 @@ You can also specify the same context variables and values in the `cdk.json` fil
   }
 }
 ```
+
+## Testing manually
+
+You can use `curl` to test your application manually.
+
+For requesting a shorturl:
+
+```bash
+curl -d '{"url":"http://amazon.com"}' -H "Content-Type: application/json" -X POST https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com/prod/urls
+```
+
+For getting a complete url from a shorturl:
+
+```bash
+curl https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com/prod/urls-node/rBsbRVsjt
+```
+
+Or open the link in your browser.
 
 ## Load the application
 
