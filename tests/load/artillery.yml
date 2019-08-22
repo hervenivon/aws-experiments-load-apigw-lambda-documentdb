@@ -15,6 +15,6 @@ config:
 scenarios:
   - flow:
     - post:
-        url: "/prod/urls"
+        url: "/prod/urls-node"
         json:
           url: "{{ url }}"

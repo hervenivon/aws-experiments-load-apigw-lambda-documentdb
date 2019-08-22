@@ -125,8 +125,8 @@ export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
     });
     secret.grantRead(helloPython);
 
-    const urlShortener = new lambda.Function(this, 'urlShortener', {
-      functionName: 'urlShortener',
+    const urlShortenerNode = new lambda.Function(this, 'urlShortenerNode', {
+      functionName: 'urlShortenerNode',
       runtime: lambda.Runtime.NODEJS_10_X,
       vpc,
       code: new lambda.AssetCode('lambda-node'),
@@ -136,10 +136,10 @@ export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
       securityGroup: sg,
       environment: commentEnvironment
     });
-    secret.grantRead(urlShortener);
+    secret.grantRead(urlShortenerNode);
 
-    const getOriginURL = new lambda.Function(this, 'getOriginURL', {
-        functionName: 'getOriginURL',
+    const getOriginURLNode = new lambda.Function(this, 'getOriginURLNode', {
+        functionName: 'getOriginURLNode',
         runtime: lambda.Runtime.NODEJS_10_X,
         vpc,
         code: new lambda.AssetCode('lambda-node'),
@@ -149,7 +149,7 @@ export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
         securityGroup: sg,
         environment: commentEnvironment
     });
-    secret.grantRead(getOriginURL);
+    secret.grantRead(getOriginURLNode);
 
     // defines an API Gateway REST API to support all handlers.
     const api = new apigw.RestApi(this, 'api', {
@@ -168,13 +168,13 @@ export class AwsExperimentsLoadApigwLambdaDocumentdbStack extends cdk.Stack {
     const routePythonLambdaIntegration = new apigw.LambdaIntegration(helloPython);
     routePython.addMethod('GET', routePythonLambdaIntegration)
 
-    const urls = api.root.addResource('urls')
-    const urlShortenerLambdaIntegration = new apigw.LambdaIntegration(urlShortener);
-    urls.addMethod('POST', urlShortenerLambdaIntegration);
+    const urlsNode = api.root.addResource('urls-node')
+    const urlShortenerNodeLambdaIntegration = new apigw.LambdaIntegration(urlShortenerNode);
+    urlsNode.addMethod('POST', urlShortenerNodeLambdaIntegration);
 
-    const singleURL = urls.addResource(`{id}`);
-    const getOriginURLLambdaIntegration = new apigw.LambdaIntegration(getOriginURL);
-    singleURL.addMethod('GET', getOriginURLLambdaIntegration);
+    const singleURL = urlsNode.addResource(`{id}`);
+    const getOriginURLNodeLambdaIntegration = new apigw.LambdaIntegration(getOriginURLNode);
+    singleURL.addMethod('GET', getOriginURLNodeLambdaIntegration);
 
     new cdk.CfnOutput(this, 'apiEndpoint', {
       value: api.url
