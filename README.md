@@ -27,7 +27,7 @@ For this experiment you will need the following:
 - The [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) toolkit: `$> npm install -g aws-cdk`
 - [artillery](https://artillery.io/): `$> npm install -g artillery`
 
-If this is the first time you deploy a CDK application in an environment you need to bootstrap it. Please take a look at the bootstrap section of the [CDK workshop](https://cdkworkshop.com/20-typescript/20-create-project/500-deploy.html).
+If this is the first time you deploy a CDK application in an AWS environment, you need to bootstrap it: `cdk bootstrap`. Please take a look at the bootstrap section of the [CDK workshop](https://cdkworkshop.com/20-typescript/20-create-project/500-deploy.html).
 
 ## Deployment
 
