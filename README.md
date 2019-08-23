@@ -24,7 +24,7 @@ For this experiment you will need the following:
 - The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 - An AWS account. If you don’t have an AWS account, you can create a free account [here](https://portal.aws.amazon.com/billing/signup/iam).
 - Node.js (>= 8.10). To install Node.js visit the [node.js](https://nodejs.org/en/) website. You can also a node version manager: [nvm](https://github.com/nvm-sh/nvm)
-- The [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) toolkit.
+- The [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) toolkit: `$> npm install -g aws-cdk`
 - [artillery](https://artillery.io/): `$> npm install -g artillery`
 
 If this is the first time you deploy a CDK application in an environment you need to bootstrap it. Please take a look at the bootstrap section of the [CDK workshop](https://cdkworkshop.com/20-typescript/20-create-project/500-deploy.html).
@@ -42,7 +42,7 @@ This section covers how to deploy the API. It is a 3 steps process:
 If you haven't done it already, execute the following command in your Terminal.
 
 ```bash
-$> aws secretsmanager create-secret --name AwsExperimentsLoadApigwLambdaDocumentdb/docdbsecrets --secret-string '{"masterUserPassword": "XXX-XXX-XXX-XXXXXXXXXXXX","masterUsername": "masteruser"}'
+$> aws secretsmanager create-secret --name AwsExperimentsLoadApigwLambdaDocumentdb/docdbsecrets --secret-string '{"password": "XXX-XXX-XXX-XXXXXXXXXXXX","username": "masteruser"}'
 ```
 
 Retrieve the arn for the displayed result, you will use it when you deploy the CDK application.
@@ -51,11 +51,19 @@ Note: we should be able to create the secret through CDK and suppress this manua
 
 ### Build
 
+At the root of the repository:
+
+```bash
+$> npm install
+```
+
+This will install all the AWS CDK project dependencies.
+
 ```bash
 $> npm run clean
 ```
 
-This will clean eventually installed development dependencies in the API application code. This help to reduce package size of lambda function code.
+This will remove all eventually installed development dependencies in the API application code. This helps to reduce package size of our lambda functions.
 
 ```bash
 $> npm run build
@@ -63,9 +71,10 @@ $> npm run build
 
 This command execute the following command:
 
-- `tsc` to transpile Typescript to Javascript
 - `npm install --production --no-optional` in the `lambda-node` directory to install required dependencies
-- `wget https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem` to gather the necessary `pem` file for [TLS connection](https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html) to DocumentDB
+- `tsc` in the root directory to transpile Typescript to Javascript
+- `wget https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem` in the `lambda-node` to gather the necessary `pem` file for [TLS connection](https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html) to DocumentDB
+
 
 ### Deploy
 
@@ -95,7 +104,7 @@ You can use `curl` to test your application manually.
 For requesting a shorturl:
 
 ```bash
-curl -d '{"url":"http://amazon.com"}' -H "Content-Type: application/json" -X POST https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com/prod/urls
+curl -d '{"url":"http://amazon.com"}' -H "Content-Type: application/json" -X POST https://XXXXXXXXXX.execute-api.us-east-1.amazonaws.com/prod/urls-node
 ```
 
 For getting a complete url from a shorturl:

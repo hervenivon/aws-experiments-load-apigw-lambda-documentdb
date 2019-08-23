@@ -5,7 +5,7 @@
     "aws-experiments-load-apigw-lambda-documentdb": "bin/aws-experiments-load-apigw-lambda-documentdb.js"
   },
   "scripts": {
-    "build": "tsc && cd lambda-node && npm install --production --no-optional && ([ -f rds-combined-ca-bundle.pem ] || wget https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem) && cd ..",
+    "build": "cd lambda-node && npm install --production --no-optional && ([ -f rds-combined-ca-bundle.pem ] || wget https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem) && cd .. && tsc",
     "watch": "tsc -w",
     "clean": "cd lambda-node && rm -rf node_modules",
     "distclean": "rm -rf node_modules && cd lambda-node && rm -rf node_modules",

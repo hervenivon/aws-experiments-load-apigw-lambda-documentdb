@@ -13,12 +13,11 @@
     "aws-lambda": "^0.1.2",
     "aws-sdk": "^2.514.0",
     "mongodb": "^3.3.0-beta2",
-    "shortid": "^2.2.14"
-  },
-  "devDependencies": {
+    "shortid": "^2.2.14",
     "@types/aws-lambda": "^8.10.31",
     "@types/mongodb": "^3.3.0",
     "@types/node": "^12.7.2",
     "@types/shortid": "0.0.29"
-  }
+  },
+  "devDependencies": {}
 }
